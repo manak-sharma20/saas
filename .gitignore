@@ -27,3 +27,5 @@ coverage
 # OS / Editor
 .DS_Store
 .vscode-test
+
+/src/generated/prisma
