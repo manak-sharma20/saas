@@ -2,6 +2,8 @@ const bcrypt=require("bcryptjs");
 const {PrismaClient}=require("@prisma/client");
 const JWT= require("jsonwebtoken");
 const prisma = new PrismaClient();
+const JWT_SECRET = process.env.JWT_SECRET;
+
 
 
 
@@ -11,7 +13,7 @@ const login=async(req,res)=>{
     if(!email || !password){
         return res.status(400).json({error:"Missing credientals"})
     }
-    const user= await prisma.User.findUnique({where:{email}});
+    const user= await prisma.user.findUnique({where:{email}});
     if(!user){
         return res.status(401).json({error:"Wrong email OR wrong password"});
 
@@ -20,7 +22,7 @@ const login=async(req,res)=>{
     if(!isValid){
         return res.status(401).json({error:"Invalid credientanls"})
     }
-    payload={id:user.id,organizationId:user.organizationId,role:user.role};
+    const payload={id:user.id,organizationId:user.organizationId,role:user.role};
     const token=JWT.sign(payload,JWT_SECRET);
     
 

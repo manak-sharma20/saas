@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 async function getmeController(req,res) {
     const id=req.user.id;
-    const user = await prisma.User.findUnique({
+    const user = await prisma.user.findUnique({
         where:{id:id},select: {
             id: true,
             email: true,

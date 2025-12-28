@@ -10,12 +10,12 @@ async function inviteContoller (req,res)
     if(req.user.role!=="ADMIN"){
         return res.status(403).json({err:"Forbidden"})
     }
-    const user=await prisma.User.findUnique({where:{email:email}})
+    const user=await prisma.user.findUnique({where:{email:email}})
     if(user){
         return res.status(409).json({err:"Conflict"})
     }
     const hashed= await bcrypt.hash(password,10)
-    const new_user= await prisma.User.create({data:{
+    const new_user= await prisma.user.create({data:{
         email:email,password:hashed,role:"MEMBER",organizationId : req.user.organizationId
     }})
     return res.status(201).json({"message":"Created successfully"})
