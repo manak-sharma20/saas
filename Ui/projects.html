@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - SaaS App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Navbar is injected by app.js -->
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <h1>Projects</h1>
+    </div>
+
+    <!-- Create Project Card -->
+    <div
+      style="background: var(--card-background); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 2rem;">
+      <h3 style="margin-bottom: 1rem;">Add New Project</h3>
+      <div style="display: flex; gap: 1rem;">
+        <input id="projectName" placeholder="Enter project name" style="flex: 1;">
+        <button id="createBtn" class="btn-primary" onclick="createProject()" style="width: auto;">Create
+          Project</button>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <p id="empty" class="text-center text-muted" style="display: none; margin-top: 3rem;"></p>
+
+    <!-- Project list -->
+    <ul id="projectList" class="project-list"></ul>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
