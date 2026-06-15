@@ -16,6 +16,8 @@ async function apiCall(endpoint, method = "GET", body = null) {
     const data = await res.json();
     if (!res.ok) {
       if (res.status === 401) logout();
+      if (res.status === 409) throw new Error("__conflict__");
+      if (res.status === 403) throw new Error("You do not have permission to do this.");
       throw new Error(data.error || data.err || "Something went wrong");
     }
     return data;
@@ -282,11 +284,14 @@ async function inviteMember() {
     emailInput.value = "";
     passwordInput.value = "";
     errorEl.style.display = "none";
-    successEl.textContent = `Invitation sent to ${email}.`;
+    successEl.textContent = `Member ${email} invited successfully.`;
     successEl.style.display = "block";
     setTimeout(() => { successEl.style.display = "none"; }, 5000);
   } catch (err) {
-    showError(errorEl, err.message);
+    const msg = err.message === "__conflict__"
+      ? "An account with this email already exists."
+      : err.message;
+    showError(errorEl, msg);
   } finally {
     setLoading(btn, false);
   }
